@@ -1,0 +1,87 @@
+classDiagram
+    %% Zajištění směru shora dolů
+    direction TB
+
+    %% 1. Nejprve definujeme čistou dědičnost (Stromy)
+    Automat <|-- KavovyAutomat
+    Automat <|-- AutomatNaPlechovky
+    Automat <|-- AutomatNaOplatky
+    
+    Product <|-- KavovyProdukt
+    Product <|-- Plechovka
+    Product <|-- Oplatka
+    
+    %% 2. Až poté přidáme vazby složení (Agregace)
+    ObchodniCentrum o-- KavovyAutomat
+    ObchodniCentrum o-- AutomatNaPlechovky
+    ObchodniCentrum o-- AutomatNaOplatky
+    
+    Automat o-- Product
+
+    %% Definice třídy ObchodniCentrum
+    class ObchodniCentrum {
+        -string nazev
+        -int pocetKavovychAutomatu
+        -int kapacitaKavovychAutomatu
+        -KavovyAutomat** kavoveAutomaty
+        +ObchodniCentrum(nazev, kapacitaK, kapacitaP, kapacitaO)
+        +~ObchodniCentrum()
+        +pridejAutomat(KavovyAutomat* automat)
+        +getKavovyAutomat(int index)
+        +vypisAutomaty()
+        +spocitejCelkovouTrzbu()
+        +spocitejCelkovyPocetNakupu()
+    }
+
+    %% Definice třídy Automat a potomků
+    class Automat {
+        -string nazev
+        -int penizeVAutomatu
+        -int pocetNakupu
+        +getNazev() string
+        +getPenizeVAutomatu() int
+        +getPocetNakupu() int
+        +vypisProdukty()
+        +najdiProdukt(string nazev)
+        +zkontrolujPenize(Product* p)
+        +dokoncitNakup(Product* p)
+    }
+
+    class KavovyAutomat {
+        +kupProdukt(string nazev)
+    }
+
+    class AutomatNaPlechovky {
+        +kupProdukt(string nazev)
+    }
+
+    class AutomatNaOplatky {
+        +kupProdukt(string nazev)
+    }
+
+    %% Definice třídy Product a potomků
+    class Product {
+        -string nazev
+        -int cena
+        +getNazev() string
+        +getCena() int
+    }
+
+    class KavovyProdukt {
+        -int potrebaVody
+        -int potrebaKavy
+        -int potrebaMleka
+        +getPotrebaVody() int
+        +getPotrebaKavy() int
+        +getPotrebaMleka() int
+    }
+
+    class Plechovka {
+        -int objem
+        -bool alko
+    }
+
+    class Oplatka {
+        -int hmotnost
+        -string prichut
+    }
