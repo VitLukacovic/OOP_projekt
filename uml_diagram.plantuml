@@ -1,0 +1,160 @@
+@startuml OOP_Projekt_UML
+
+!define ABSTRACT_COLOR #FFE6E6
+!define CONCRETE_COLOR #E6F3FF
+
+skinparam class {
+    BackgroundColor #FEFEFE
+    ArrowColor #333333
+    BorderColor #333333
+}
+
+abstract class Product {
+    #{abstract} nazev: string
+    #{abstract} cena: int
+    ---
+    + Product()
+    + Product(nazev: string, cena: int)
+    + {abstract} ~Product()
+    + getNazev(): string
+    + getCena(): int
+    + {abstract} popis(): void
+}
+
+class KavovyProdukt {
+    - potrebaVody: int
+    - potrebaKavy: int
+    - potrebaMleka: int
+    ---
+    + KavovyProdukt(nazev: string, cena: int, voda: int, kava: int, mleko: int)
+    + getPotrebaVody(): int
+    + getPotrebaKavy(): int
+    + getPotrebaMleka(): int
+    + popis(): void
+}
+
+class Plechovka {
+    - objemMl: int
+    - perliva: bool
+    ---
+    + Plechovka(nazev: string, cena: int, objem: int, perliva: bool)
+    + popis(): void
+}
+
+class Oplatka {
+    - hmotnostG: int
+    - prichut: string
+    ---
+    + Oplatka(nazev: string, cena: int, hmotnost: int, prichut: string)
+    + popis(): void
+}
+
+abstract class Automat {
+    #{abstract} nazev: string
+    #{abstract} vlozenePenize: int
+    #{abstract} penizeVAutomatu: int
+    #{abstract} pocetNakupu: int
+    #{abstract} produkty: Product**
+    #{abstract} pocetProduktu: int
+    #{abstract} kapacitaProduktu: int
+    ---
+    + Automat()
+    + {abstract} ~Automat()
+    # nastavAutomat(nazev: string, kapacita: int): void
+    # najdiProdukt(nazev: string): Product*
+    # zkontrolujPenize(produkt: Product*): bool
+    # dokoncitNakup(produkt: Product*): void
+    # vratZbytek(): void
+    ---
+    + getNazev(): string
+    + getPenizeVAutomatu(): int
+    + getPocetNakupu(): int
+    + pridejProdukt(produkt: Product*): void
+    + vlozPenize(castka: int): void
+    + vypisProdukty(): void
+    + vypisStatistikyAutomatu(): void
+    + {abstract} kupProdukt(nazev: string): bool
+}
+
+class KavovyAutomat {
+    - voda: int
+    - kava: int
+    - mleko: int
+    ---
+    + KavovyAutomat(nazev: string, voda: int, kava: int, mleko: int, kapacita: int = 60)
+    + kupProdukt(nazev: string): bool
+    + vypisSuroviny(): void
+}
+
+class AutomatNaPlechovky {
+    ---
+    + AutomatNaPlechovky(nazev: string, kapacita: int = 60)
+    + kupProdukt(nazev: string): bool
+}
+
+class AutomatNaOplatky {
+    ---
+    + AutomatNaOplatky(nazev: string, kapacita: int = 60)
+    + kupProdukt(nazev: string): bool
+}
+
+class ObchodniCentrum {
+    - nazev: string
+    - kavoveAutomaty: KavovyAutomat**
+    - plechovkoveAutomaty: AutomatNaPlechovky**
+    - oplatkoveAutomaty: AutomatNaOplatky**
+    - pocetKavovychAutomatu: int
+    - pocetPlechovkovychAutomatu: int
+    - pocetOplatkovychAutomatu: int
+    - kapacitaKavovychAutomatu: int
+    - kapacitaPlechovkovychAutomatu: int
+    - kapacitaOplatkovychAutomatu: int
+    ---
+    + ObchodniCentrum(nazev: string, kapK: int = 10, kapP: int = 10, kapO: int = 10)
+    + ~ObchodniCentrum()
+    + pridejAutomat(automat: KavovyAutomat*): void
+    + pridejAutomat(automat: AutomatNaPlechovky*): void
+    + pridejAutomat(automat: AutomatNaOplatky*): void
+    + getKavovyAutomat(index: int): KavovyAutomat*
+    + getPlechovkovyAutomat(index: int): AutomatNaPlechovky*
+    + getOplatkovyAutomat(index: int): AutomatNaOplatky*
+    + vypisAutomaty(): void
+    + vypisVsechnyProdukty(): void
+    + spocitejCelkovouTrzbu(): int
+    + spocitejCelkovyPocetNakupu(): int
+    + vypisStatistiky(): void
+}
+
+' Inheritance relationships
+Product <|-- KavovyProdukt
+Product <|-- Plechovka
+Product <|-- Oplatka
+
+Automat <|-- KavovyAutomat
+Automat <|-- AutomatNaPlechovky
+Automat <|-- AutomatNaOplatky
+
+' Composition relationships
+Automat *-- "0..*" Product : obsahuje
+
+ObchodniCentrum *-- "0..*" KavovyAutomat : spravuje
+ObchodniCentrum *-- "0..*" AutomatNaPlechovky : spravuje
+ObchodniCentrum *-- "0..*" AutomatNaOplatky : spravuje
+
+note right of Product
+    Abstraktni trida pro vsechny produkty. Obsahuje zakladni informace
+    a metody pro ziskani nazvu, ceny a popisu produktu.
+end note
+
+note right of Automat
+    Abstraktni trida pro vsechny automaty. Obsahuje zakladni informace
+    a metody pro spravu produktu, penize a nakupy.
+end note
+
+note right of ObchodniCentrum
+    Trida pro spravu obchodniho centra, ktera obsahuje a spravuje
+    vsechny automaty a jejich produkty. Umoznuje vypisovat statistiky
+    a celkovou trzbu.
+end note
+
+@enduml

@@ -8,7 +8,7 @@ using namespace std;
 
 int main()
 {
-    ObchodniCentrum centrum("OC Banska");
+    ObchodniCentrum* centrum = new ObchodniCentrum("OC Banska");
 
     KavovyAutomat* kavovy1 = new KavovyAutomat("Kavovy automat K1", 3000, 500, 1000);
     KavovyAutomat* kavovy2 = new KavovyAutomat("Kavovy automat K2", 2000, 300, 700);
@@ -19,12 +19,12 @@ int main()
     AutomatNaOplatky* oplatky1 = new AutomatNaOplatky("Automat na oplatky O1");
     AutomatNaOplatky* oplatky2 = new AutomatNaOplatky("Automat na oplatky O2");
 
-    centrum.pridejAutomat(kavovy1);
-    centrum.pridejAutomat(kavovy2);
-    centrum.pridejAutomat(plechovky1);
-    centrum.pridejAutomat(plechovky2);
-    centrum.pridejAutomat(oplatky1);
-    centrum.pridejAutomat(oplatky2);
+    centrum->pridejAutomat(kavovy1);
+    centrum->pridejAutomat(kavovy2);
+    centrum->pridejAutomat(plechovky1);
+    centrum->pridejAutomat(plechovky2);
+    centrum->pridejAutomat(oplatky1);
+    centrum->pridejAutomat(oplatky2);
 
     kavovy1->pridejProdukt(new KavovyProdukt("Espresso", 35, 50, 15, 0));
     kavovy1->pridejProdukt(new KavovyProdukt("Lungo", 40, 80, 15, 0));
@@ -51,8 +51,8 @@ int main()
         oplatky1->pridejProdukt(new Oplatka("Oplatka Special " + to_string(i), 20 + i * 3, 50 + i * 7, "vanilkova"));
     }
 
-    centrum.vypisAutomaty();
-    centrum.vypisVsechnyProdukty();
+    centrum->vypisAutomaty();
+    centrum->vypisVsechnyProdukty();
 
     cout << "\n===== UKAZKA NAKUPU =====\n" << endl;
 
@@ -105,7 +105,7 @@ int main()
     kavovy1->vypisSuroviny();
     kavovy2->vypisSuroviny();
 
-    centrum.vypisStatistiky();
+    centrum->vypisStatistiky();
 
     return 0;
 }

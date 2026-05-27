@@ -10,7 +10,7 @@
                 "${fileDirname}\\main.cpp",
                 "${fileDirname}\\ObchodniCentrum.cpp",
                 "${fileDirname}\\Automat.cpp", 
-                "${fileDirname}\\Product.cpp", // <-- TADY JE TA ZMĚNA
+                "${fileDirname}\\Product.cpp",
                 "-o",
                 "${fileDirname}\\main.exe"
             ],
