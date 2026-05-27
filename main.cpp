@@ -101,7 +101,7 @@ int main()
         vsechnyAutomaty[i]->vypisStatistikyAutomatu();
     }
 
-    cout << "Celkem existuje produktu: " << Product::getCelkovyPocetProduktu() << endl;
+    cout << "Celkem existuje produktu: " << Product::getCelkovyPocetProduktu() << "\n" <<endl;
 
     delete[] vsechnyAutomaty;
 
