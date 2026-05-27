@@ -82,8 +82,10 @@ int main()
 
     cout << "\n===== STATISTIKY AUTOMATU =====\n" << endl;
     //polymorfismus
+    // POLYMORFNÍ DATOVÁ STRUKTURA: Pole ukazatelů na bazickou třídu Automat
     Automat** vsechnyAutomaty = new Automat*[6];
 
+    // POLYMORFNÍ PŘIŘAZENÍ 
     vsechnyAutomaty[0] = kavovy1;
     vsechnyAutomaty[1] = kavovy2;
     vsechnyAutomaty[2] = plechovky1;
@@ -95,8 +97,11 @@ int main()
 
     for(int i = 0; i < pocetVsechAutomatu; i++)
     {
+        // POLYMORFNÍ VOLÁNÍ
         vsechnyAutomaty[i]->vypisStatistikyAutomatu();
     }
+
+    cout << "Celkem existuje produktu: " << Product::getCelkovyPocetProduktu() << endl;
 
     delete[] vsechnyAutomaty;
 

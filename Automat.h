@@ -2,7 +2,7 @@
 #include <string>
 #include "Product.h"
 
-// Abstraktni trida Automat
+// Čistě abstraktní třída Automat
 class Automat
 {
     protected:
@@ -46,7 +46,7 @@ class KavovyAutomat : public Automat
 
     public:
         KavovyAutomat(std::string nazev, int voda, int kava, int mleko, int kapacitaProduktu = 60);
-        bool kupProdukt(std::string nazevProduktu) override;
+        bool kupProdukt(std::string nazevProduktu) override; //pozdni vazba
         void vypisSuroviny();
 };
 
@@ -54,12 +54,12 @@ class AutomatNaPlechovky : public Automat
 {
     public:
         AutomatNaPlechovky(std::string nazev, int kapacitaProduktu = 60);
-        bool kupProdukt(std::string nazevProduktu) override;
+        bool kupProdukt(std::string nazevProduktu) override; //pozdni vazba
 };
 
 class AutomatNaOplatky : public Automat
 {
     public:
         AutomatNaOplatky(std::string nazev, int kapacitaProduktu = 60);
-        bool kupProdukt(std::string nazevProduktu) override;
+        bool kupProdukt(std::string nazevProduktu) override; //pozdni vazba
 };

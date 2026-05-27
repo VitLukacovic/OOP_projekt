@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 
-// Abstraktni trida
+// Čistě abstraktní třída Product
 class Product
 {
     protected:
@@ -9,6 +9,8 @@ class Product
         int cena;
 
     public:
+        static int celkovyPocetProduktu;
+
         Product();
         Product(std::string nazev, int cena);
         virtual ~Product();
@@ -16,6 +18,7 @@ class Product
         std::string getNazev();
         int getCena();
         virtual void popis() = 0;
+        static int getCelkovyPocetProduktu();
 };
 
 class KavovyProdukt : public Product

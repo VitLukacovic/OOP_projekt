@@ -10,10 +10,13 @@ Product::Product()
     this->cena = 0;
 }
 
+int Product::celkovyPocetProduktu = 0;
+
 Product::Product(string nazev, int cena)
 {
     this->nazev = nazev;
     this->cena = cena;
+    celkovyPocetProduktu++;
 }
 
 Product::~Product()
@@ -29,6 +32,11 @@ string Product::getNazev()
 int Product::getCena()
 {
     return this->cena;
+}
+
+int Product::getCelkovyPocetProduktu()
+{
+    return celkovyPocetProduktu;
 }
 
 //KavovyProdukt
